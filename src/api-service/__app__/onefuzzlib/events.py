@@ -33,9 +33,14 @@ def get_events() -> Optional[str]:
         return None
 
 
+def log_event(event: Event, event_type: EventType) -> None: 
+    clone_event = event.copy(deep=true)
+    
+    logging.info("sending event: %s - %s", event_type, event)
+
 def send_event(event: Event) -> None:
     event_type = get_event_type(event)
-    logging.info("sending event: %s - %s", event_type, event)
+    log_event(event, event_type)
     event_message = EventMessage(
         event_type=event_type,
         event=event,
